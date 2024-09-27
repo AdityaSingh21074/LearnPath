@@ -1,4 +1,4 @@
-package com.learnpath.LearnPath.Model;
+package com.learnpath.LearnPath.Service;
 
 import java.util.Optional;
 
@@ -8,6 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.learnpath.LearnPath.Model.MyAppUser;
+import com.learnpath.LearnPath.Repository.MyAppUserRepository;
 
 import lombok.AllArgsConstructor;
 

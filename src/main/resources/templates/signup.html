@@ -10,68 +10,71 @@
 </head>
 <body>
   <section>
-    <form action="/req/signup" method="post">
+    <form id="signupForm">
       <h1>Sign Up</h1>
-        <div class="inputbox">
-            <ion-icon name="person-outline"></ion-icon>
-            <input type="text" id= "username" name="username" required>
-            <label for="">Name</label>
-        </div>
-        <div class="inputbox">
-            <ion-icon name="mail-outline"></ion-icon>
-            <input type="email" id="email" name="email" required>
-            <label for="">Email</label>
-        </div>
-        
-        <div class="inputbox">
-            <ion-icon name="lock-closed-outline"></ion-icon>
-            <input type="password" id="password" name="password" required>
-            <label for="">Password</label>
-        </div>  
-        <div class="inputbox">
-          <ion-icon name="lock-closed-outline"></ion-icon>
-          <input type="password" id="passwordcon" name="passwordcon" required>
-          <label for="">Confirm Password</label>
-      </div>  
-        <button id= "submit" type="submit">Sign Up</button>
-      <div class="register">
-        <p>Already have an account? <a href="">Log In</a></p>
+      <div class="inputbox">
+        <ion-icon name="person-outline"></ion-icon>
+        <input type="text" id="username" name="username" required>
+        <label for="username">Name</label>
       </div>
+      <div class="inputbox">
+        <ion-icon name="mail-outline"></ion-icon>
+        <input type="email" id="email" name="email" required>
+        <label for="email">Email</label>
+      </div>
+      <div class="inputbox">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <input type="password" id="password" name="password" required>
+        <label for="password">Password</label>
+      </div>
+      <div class="inputbox">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <input type="password" id="passwordcon" name="passwordcon" required>
+        <label for="passwordcon">Confirm Password</label>
+      </div>
+      <button id="submit" type="submit">Sign Up</button>
+      <div class="register">
+        <p>Already have an account? <a href="/req/login">Log In</a></p>
+      </div>
+      <p id="message"></p> <!-- Display success or error message here -->
     </form>
   </section>
 </body>
 </html>
+
 <script>
-  const submitButttom = document.getElementById("submit");
-  submitButttom.addEventListener('click',()=>{
+  const form = document.getElementById('signupForm');
+  const message = document.getElementById('message');
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('passwordcon').value;
     const email = document.getElementById('email').value;
-    const data ={
-      username,
-      email,
-      password
-    }
-    
-    if(password == confirmPassword){
+
+    if (password === confirmPassword) {
+      const data = { username, email, password };
       const jsonData = JSON.stringify(data);
+
       fetch('/req/signup', {
         method: 'POST',
-        headers:{
-          'Content-Type': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: jsonData
       })
-      .then(response =>{
-        //alert('succesfull');
-        //if(response.status == 200){
-          //alert('succesfull');
-        //xs}
-      })
+      .then(response => {
+        if (response.status === 200) {
+          message.textContent = "Registration successful!";
+          setTimeout(() => {
+            window.location.href = "/index"; // Redirect to home page
+          }, 2000);
+        } else {
+          message.textContent = "Error during registration!";
+        }
+      });
+    } else {
+      message.textContent = "Passwords do not match!";
     }
-    
-  })
-
-  
+  });
 </script>

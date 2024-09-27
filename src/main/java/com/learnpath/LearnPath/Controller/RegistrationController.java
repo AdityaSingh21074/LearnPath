@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learnpath.LearnPath.Model.MyAppUser;
-import com.learnpath.LearnPath.Model.MyAppUserRepository;
+import com.learnpath.LearnPath.Repository.MyAppUserRepository;
 
 @RestController
 public class RegistrationController {
