@@ -5,8 +5,129 @@
   <title>Signup Form</title>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/signup.js" defer></script>
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+    section {
+      background-color: #ffffff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    form h1 {
+      text-align: center;
+      margin-bottom: 1em;
+      color: #333;
+      font-size: 1.8em;
+    }
+
+    .inputbox {
+      position: relative;
+      margin-bottom: 1.5em;
+    }
+
+    .inputbox ion-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #777;
+      font-size: 1.2em;
+    }
+
+    .inputbox input {
+      width: 100%;
+      padding: 10px 10px 10px 40px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      background: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    .inputbox input:focus {
+      border-color: #5b8cfe;
+    }
+
+    .inputbox label {
+      position: absolute;
+      top: 50%;
+      left: 40px;
+      transform: translateY(-50%);
+      font-size: 0.9em;
+      color: #aaa;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .inputbox input:focus + label,
+    .inputbox input:valid + label {
+      top: -10px;
+      left: 35px;
+      font-size: 0.75em;
+      color: #5b8cfe;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #5b8cfe;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3a6ddf;
+    }
+
+    .register {
+      margin-top: 1em;
+      text-align: center;
+    }
+
+    .register p {
+      color: #555;
+      font-size: 0.9em;
+    }
+
+    .register a {
+      color: #5b8cfe;
+      text-decoration: none;
+    }
+
+    .register a:hover {
+      text-decoration: underline;
+    }
+
+    #message {
+      text-align: center;
+      margin-top: 1em;
+      color: red;
+      font-size: 0.9em;
+    }
+  </style>
 </head>
 <body>
   <section>
@@ -39,42 +160,43 @@
       <p id="message"></p> <!-- Display success or error message here -->
     </form>
   </section>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const message = document.getElementById('message');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('passwordcon').value;
+      const email = document.getElementById('email').value;
+
+      if (password === confirmPassword) {
+        const data = { username, email, password };
+        const jsonData = JSON.stringify(data);
+
+        fetch('/req/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: jsonData
+        })
+        .then(response => {
+          if (response.status === 200) {
+            message.style.color = 'green';
+            message.textContent = "Registration successful!";
+            setTimeout(() => {
+              window.location.href = "/index"; // Redirect to home page
+            }, 2000);
+          } else {
+            message.textContent = "Error during registration!";
+          }
+        });
+      } else {
+        message.textContent = "Passwords do not match!";
+      }
+    });
+  </script>
 </body>
 </html>
-
-<script>
-  const form = document.getElementById('signupForm');
-  const message = document.getElementById('message');
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('passwordcon').value;
-    const email = document.getElementById('email').value;
-
-    if (password === confirmPassword) {
-      const data = { username, email, password };
-      const jsonData = JSON.stringify(data);
-
-      fetch('/req/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: jsonData
-      })
-      .then(response => {
-        if (response.status === 200) {
-          message.textContent = "Registration successful!";
-          setTimeout(() => {
-            window.location.href = "/index"; // Redirect to home page
-          }, 2000);
-        } else {
-          message.textContent = "Error during registration!";
-        }
-      });
-    } else {
-      message.textContent = "Passwords do not match!";
-    }
-  });
-</script>

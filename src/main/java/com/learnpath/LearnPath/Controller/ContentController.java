@@ -2,6 +2,8 @@ package com.learnpath.LearnPath.Controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class ContentController {
@@ -18,14 +20,31 @@ public class ContentController {
     public String home() {
         return "index"; 
     }
-    @GetMapping("/courses")
-    public String courses() {
-        return "courses"; 
+    @GetMapping("/course")
+    public String course() {
+        return "course"; 
     }
 
-    @GetMapping("/videos")
-    public String videos() {
-        return "videos"; 
+    @GetMapping("/about")
+    public String about() {
+        return "about"; 
+    }
+    @GetMapping("/detail")
+    public String detail() {
+        return "detail"; 
+    }
+    @GetMapping("/feature")
+    public String feature() {
+        return "feature"; 
+    }
+    @GetMapping("/notes")
+    public String notes() {
+        return "notes"; 
+    }
+
+    @GetMapping("/roadmaps")
+    public String roadmaps() {
+        return "roadmaps"; 
     }
     
 }

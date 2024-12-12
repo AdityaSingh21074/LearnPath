@@ -1,40 +1,159 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
   <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  <link rel="stylesheet" href="/css/style.css">
-  <script src="/js/signup.js" defer></script>
+  <style>
+    /* General reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f2f2f2;
+    }
+
+    section {
+      background-color: #ffffff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    form h1 {
+      text-align: center;
+      margin-bottom: 1em;
+      color: #333;
+      font-size: 1.8em;
+    }
+
+    .inputbox {
+      position: relative;
+      margin-bottom: 1.5em;
+    }
+
+    .inputbox ion-icon {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #777;
+      font-size: 1.2em;
+    }
+
+    .inputbox input {
+      width: 100%;
+      padding: 10px 10px 10px 40px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      outline: none;
+      background: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+
+    .inputbox input:focus {
+      border-color: #5b8cfe;
+    }
+
+    .inputbox label {
+      position: absolute;
+      top: 50%;
+      left: 40px;
+      transform: translateY(-50%);
+      font-size: 0.9em;
+      color: #aaa;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .inputbox input:focus + label,
+    .inputbox input:valid + label {
+      top: -10px;
+      left: 35px;
+      font-size: 0.75em;
+      color: #5b8cfe;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #5b8cfe;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #3a6ddf;
+    }
+
+    .register {
+      margin-top: 1em;
+      text-align: center;
+    }
+
+    .register p {
+      color: #555;
+      font-size: 0.9em;
+    }
+
+    .register a {
+      color: #5b8cfe;
+      text-decoration: none;
+    }
+
+    .register a:hover {
+      text-decoration: underline;
+    }
+
+    /* Error message styling */
+    .redText {
+      color: red;
+      text-align: center;
+      margin-bottom: 1em;
+    }
+  </style>
 </head>
 <body>
-<body>
-    <section>
-        
-        <form action="/req/login" method="post">
-            <h1>Login</h1>
-            <div class="dialog-row">
-                <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-center redText"></label>                   
-            </div>
-            <div class="inputbox">
-                <ion-icon name="email-outline"></ion-icon>
-                <input name="username" id="username"type="name" required>
-                <label for="">username</label>
-            </div>
-            <div class="inputbox">
-                <ion-icon name="lock-closed-outline"></ion-icon>
-                <input name="password" type="password" id="password" required>
-                <label for="">Password</label>
-            </div>
-            <div class="register">
-                <p><a href="#">Forget Password ?</a></p>
-            </div>
-            <button>Log in</button>
-            <div class="register">
-                <p>Don't have a account ?<a href="/req/signup"> Register!!</a></p>
-            </div>
-        </form>
-    </section>
+  <section>
+    <form action="/req/login" method="post">
+      <h1>Login</h1>
+      <div class="dialog-row">
+        <label th:if="${param.error}" th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}" class="text-center redText"></label>
+      </div>
+      <div class="inputbox">
+        <ion-icon name="person-outline"></ion-icon>
+        <input name="username" id="username" type="name" required>
+        <label for="username">Username</label>
+      </div>
+      <div class="inputbox">
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <input name="password" type="password" id="password" required>
+        <label for="password">Password</label>
+      </div>
+      <div class="register">
+        <p><a href="#">Forget Password?</a></p>
+      </div>
+      <button type="submit">Log in</button>
+      <div class="register">
+        <p>Don't have an account? <a href="/req/signup">Register!</a></p>
+      </div>
+    </form>
+  </section>
 </body>
-  
+</html>
