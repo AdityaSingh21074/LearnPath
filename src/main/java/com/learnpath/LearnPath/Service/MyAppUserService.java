@@ -36,6 +36,7 @@ public class MyAppUserService implements UserDetailsService {
         }
     }
 
+    
     // Method to increment coins when the user logs in
     // @Transactional
     // public void incrementCoins(String username) {
